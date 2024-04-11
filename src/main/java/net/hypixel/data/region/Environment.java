@@ -14,23 +14,23 @@ public enum Environment {
     ;
 
     private static final Collection<Environment> VALUES = Arrays.asList(values());
-    private static final Map<Byte, Environment> BY_ID = VALUES.stream().collect(Collectors.toMap(Environment::getId, Function.identity()));
+    private static final Map<Integer, Environment> BY_ID = VALUES.stream().collect(Collectors.toMap(Environment::getId, Function.identity()));
 
     public static Collection<Environment> getValues() {
         return VALUES;
     }
 
-    public static Optional<Environment> getById(byte id) {
+    public static Optional<Environment> getById(int id) {
         return Optional.ofNullable(BY_ID.get(id));
     }
 
-    private final byte id;
+    private final int id;
 
     Environment(int id) {
-        this.id = (byte) id;
+        this.id = id;
     }
 
-    public byte getId() {
+    public int getId() {
         return id;
     }
 }

@@ -16,23 +16,23 @@ public enum PackageRank {
     ;
 
     private static final Collection<PackageRank> VALUES = Arrays.asList(values());
-    private static final Map<Byte, PackageRank> BY_ID = VALUES.stream().collect(Collectors.toMap(PackageRank::getId, Function.identity()));
+    private static final Map<Integer, PackageRank> BY_ID = VALUES.stream().collect(Collectors.toMap(PackageRank::getId, Function.identity()));
 
     public static Collection<PackageRank> getValues() {
         return VALUES;
     }
 
-    public static Optional<PackageRank> getById(byte id) {
+    public static Optional<PackageRank> getById(int id) {
         return Optional.ofNullable(BY_ID.get(id));
     }
 
-    private final byte id;
+    private final int id;
 
     PackageRank(int id) {
-        this.id = (byte) id;
+        this.id = id;
     }
 
-    public byte getId() {
+    public int getId() {
         return id;
     }
 

@@ -13,23 +13,23 @@ public enum MonthlyPackageRank {
     ;
 
     private static final Collection<MonthlyPackageRank> VALUES = Arrays.asList(values());
-    private static final Map<Byte, MonthlyPackageRank> BY_ID = VALUES.stream().collect(Collectors.toMap(MonthlyPackageRank::getId, Function.identity()));
+    private static final Map<Integer, MonthlyPackageRank> BY_ID = VALUES.stream().collect(Collectors.toMap(MonthlyPackageRank::getId, Function.identity()));
 
     public static Collection<MonthlyPackageRank> getValues() {
         return VALUES;
     }
 
-    public static Optional<MonthlyPackageRank> getById(byte id) {
+    public static Optional<MonthlyPackageRank> getById(int id) {
         return Optional.ofNullable(BY_ID.get(id));
     }
 
-    private final byte id;
+    private final int id;
 
     MonthlyPackageRank(int id) {
-        this.id = (byte) id;
+        this.id = id;
     }
 
-    public byte getId() {
+    public int getId() {
         return id;
     }
 }

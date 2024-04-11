@@ -1,6 +1,9 @@
 package net.hypixel.data.type;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -38,7 +41,7 @@ public enum GameType implements ServerType {
     ;
 
     private static final Collection<GameType> VALUES = Arrays.asList(values());
-    private static final Map<Byte, GameType> BY_ID = VALUES.stream().collect(Collectors.toMap(GameType::getId, Function.identity()));
+    private static final Map<Integer, GameType> BY_ID = VALUES.stream().collect(Collectors.toMap(GameType::getId, Function.identity()));
     private static final Map<String, GameType> BY_DATABASE_NAME = VALUES.stream().collect(Collectors.toMap(GameType::getDatabaseName, Function.identity()));
 
     public static Collection<GameType> getValues() {
@@ -49,7 +52,7 @@ public enum GameType implements ServerType {
      * @param id The internal id
      * @return An optional containing the GameType associated with that id, or empty if there isn't one.
      */
-    public static Optional<GameType> getById(byte id) {
+    public static Optional<GameType> getById(int id) {
         return Optional.ofNullable(BY_ID.get(id));
     }
 
@@ -62,12 +65,12 @@ public enum GameType implements ServerType {
     }
 
     private final String name, databaseName;
-    private final byte id;
+    private final int id;
 
     GameType(String name, String databaseName, int id) {
         this.name = name;
         this.databaseName = databaseName;
-        this.id = (byte) id;
+        this.id = id;
     }
 
     /**
@@ -81,7 +84,7 @@ public enum GameType implements ServerType {
     /**
      * @return The internal ID that is occasionally used in various database schemas
      */
-    public byte getId() {
+    public int getId() {
         return id;
     }
 

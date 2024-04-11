@@ -15,23 +15,23 @@ public enum PlayerRank {
     ;
 
     private static final Collection<PlayerRank> VALUES = Arrays.asList(values());
-    private static final Map<Byte, PlayerRank> BY_ID = VALUES.stream().collect(Collectors.toMap(PlayerRank::getId, Function.identity()));
+    private static final Map<Integer, PlayerRank> BY_ID = VALUES.stream().collect(Collectors.toMap(PlayerRank::getId, Function.identity()));
 
     public static Collection<PlayerRank> getValues() {
         return VALUES;
     }
 
-    public static Optional<PlayerRank> getById(byte id) {
+    public static Optional<PlayerRank> getById(int id) {
         return Optional.ofNullable(BY_ID.get(id));
     }
 
-    private final byte id;
+    private final int id;
 
     PlayerRank(int id) {
-        this.id = (byte) id;
+        this.id = id;
     }
 
-    public byte getId() {
+    public int getId() {
         return id;
     }
 }
