@@ -10,7 +10,11 @@ import java.util.stream.Collectors;
 public enum PlayerRank {
     NORMAL(1),
     YOUTUBER(2),
-    GAME_MASTER(3),
+    STAFF(3),
+    /**
+     * @deprecated Replaced with the unified {@link PlayerRank#STAFF} rank.
+     */
+    @Deprecated
     ADMIN(4),
     ;
 

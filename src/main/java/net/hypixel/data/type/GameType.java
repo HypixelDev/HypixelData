@@ -37,7 +37,7 @@ public enum GameType implements ServerType {
     PIT("Pit", "Pit", 64),
     REPLAY("Replay", "Replay", 65),
     SMP("SMP", "SMP", 67),
-    WOOL_GAMES("Wool Wars", "WoolGames", 68),
+    WOOL_GAMES("Wool Games", "WoolGames", 68),
     ;
 
     private static final Collection<GameType> VALUES = Arrays.asList(values());
