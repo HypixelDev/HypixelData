@@ -1,11 +1,8 @@
 package net.hypixel.data.type;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Map;
+import java.util.EnumSet;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public enum GameType implements ServerType {
     QUAKECRAFT("Quakecraft", "Quake", 2),
@@ -40,9 +37,15 @@ public enum GameType implements ServerType {
     WOOL_GAMES("Wool Games", "WoolGames", 68),
     ;
 
-    private static final Collection<GameType> VALUES = Arrays.asList(values());
-    private static final Map<Integer, GameType> BY_ID = VALUES.stream().collect(Collectors.toMap(GameType::getId, Function.identity()));
-    private static final Map<String, GameType> BY_DATABASE_NAME = VALUES.stream().collect(Collectors.toMap(GameType::getDatabaseName, Function.identity()));
+    private static final EnumSet<GameType> VALUES = EnumSet.allOf(GameType.class);
+    private final String name, databaseName;
+    private final int id;
+
+    GameType(String name, String databaseName, int id) {
+        this.name = name;
+        this.databaseName = databaseName;
+        this.id = id;
+    }
 
     public static Collection<GameType> getValues() {
         return VALUES;
@@ -53,7 +56,9 @@ public enum GameType implements ServerType {
      * @return An optional containing the GameType associated with that id, or empty if there isn't one.
      */
     public static Optional<GameType> getById(int id) {
-        return Optional.ofNullable(BY_ID.get(id));
+        return getValues().stream()
+                .filter((gt) -> gt.getId() == id)
+                .findFirst();
     }
 
     /**
@@ -61,16 +66,9 @@ public enum GameType implements ServerType {
      * @return An optional containing the GameType associated with that key, or empty if there isn't one.
      */
     public static Optional<GameType> getByDatabaseName(String databaseName) {
-        return Optional.ofNullable(BY_DATABASE_NAME.get(databaseName));
-    }
-
-    private final String name, databaseName;
-    private final int id;
-
-    GameType(String name, String databaseName, int id) {
-        this.name = name;
-        this.databaseName = databaseName;
-        this.id = id;
+        return getValues().stream()
+                .filter((gt) -> gt.getDatabaseName().equals(databaseName))
+                .findFirst();
     }
 
     /**

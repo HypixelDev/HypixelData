@@ -1,11 +1,8 @@
 package net.hypixel.data.rank;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Map;
+import java.util.EnumSet;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public enum PackageRank {
     NONE(1),
@@ -15,21 +12,21 @@ public enum PackageRank {
     MVP_PLUS(5),
     ;
 
-    private static final Collection<PackageRank> VALUES = Arrays.asList(values());
-    private static final Map<Integer, PackageRank> BY_ID = VALUES.stream().collect(Collectors.toMap(PackageRank::getId, Function.identity()));
+    private static final EnumSet<PackageRank> VALUES = EnumSet.allOf(PackageRank.class);
+    private final int id;
+
+    PackageRank(int id) {
+        this.id = id;
+    }
 
     public static Collection<PackageRank> getValues() {
         return VALUES;
     }
 
     public static Optional<PackageRank> getById(int id) {
-        return Optional.ofNullable(BY_ID.get(id));
-    }
-
-    private final int id;
-
-    PackageRank(int id) {
-        this.id = id;
+        return getValues().stream()
+                .filter((pr) -> pr.getId() == id)
+                .findFirst();
     }
 
     public int getId() {

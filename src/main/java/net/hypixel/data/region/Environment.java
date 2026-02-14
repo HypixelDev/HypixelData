@@ -1,11 +1,8 @@
 package net.hypixel.data.region;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Map;
+import java.util.EnumSet;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public enum Environment {
     PRODUCTION(0), // The Production Hypixel Network - "mc.hypixel.net"
@@ -13,21 +10,21 @@ public enum Environment {
     TEST(2), // The Test Hypixel Network - For Hypixel Developers
     ;
 
-    private static final Collection<Environment> VALUES = Arrays.asList(values());
-    private static final Map<Integer, Environment> BY_ID = VALUES.stream().collect(Collectors.toMap(Environment::getId, Function.identity()));
+    private static final EnumSet<Environment> VALUES = EnumSet.allOf(Environment.class);
+    private final int id;
+
+    Environment(int id) {
+        this.id = id;
+    }
 
     public static Collection<Environment> getValues() {
         return VALUES;
     }
 
     public static Optional<Environment> getById(int id) {
-        return Optional.ofNullable(BY_ID.get(id));
-    }
-
-    private final int id;
-
-    Environment(int id) {
-        this.id = id;
+        return getValues().stream()
+                .filter((env) -> env.getId() == id)
+                .findFirst();
     }
 
     public int getId() {

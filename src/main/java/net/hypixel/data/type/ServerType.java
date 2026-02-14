@@ -4,10 +4,6 @@ import java.util.Optional;
 
 public interface ServerType {
 
-    String name();
-
-    String getName();
-
     static Optional<ServerType> valueOf(String value) {
         try {
             return Optional.of(GameType.valueOf(value));
@@ -23,5 +19,9 @@ public interface ServerType {
 
         return Optional.empty();
     }
+
+    String name();
+
+    String getName();
 
 }
